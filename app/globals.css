@@ -1,0 +1,28 @@
+:root {
+  --main-background: #eee;
+  --secondary-background: #f9f9f9;
+  --button-background: #f6f6f6;
+  --main-text-color: black;
+  --secondary-text-color: #666;
+  --content-width: 1160px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--main-background);
+}
+
