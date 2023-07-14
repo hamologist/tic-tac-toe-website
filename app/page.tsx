@@ -1,28 +1,17 @@
-import styles from './page.module.css'
+import Board from './game/board';
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.board}>
-        <div className={`${styles.gameSquare} ${styles.top} ${styles.left}`}>
-        </div>
-        <div className={`${styles.gameSquare} ${styles.top}`}>
-        </div>
-        <div className={`${styles.gameSquare} ${styles.top} ${styles.right}`}>
-        </div>
-        <div className={`${styles.gameSquare} ${styles.left}`}>
-        </div>
-        <div className={`${styles.gameSquare}`}>
-        </div>
-        <div className={`${styles.gameSquare} ${styles.right}`}>
-        </div>
-        <div className={`${styles.gameSquare} ${styles.bottom} ${styles.left}`}>
-        </div>
-        <div className={`${styles.gameSquare} ${styles.bottom}`}>
-        </div>
-        <div className={`${styles.gameSquare} ${styles.bottom} ${styles.right}`}>
-        </div>
-      </div>
+    <main style={{
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      marginTop: "-300px",
+      marginLeft: "-300px",
+      width: "600px",
+      height: "600px",
+    }}>
+      <Board />
     </main>
   )
 }
