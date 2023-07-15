@@ -1,6 +1,10 @@
+"use client";
 import Board from './game/board';
+import useGameManager from './game/use-local-game-manager';
 
 export default function Home() {
+  const gameManager = useGameManager();
+
   return (
     <main style={{
       position: "absolute",
@@ -11,7 +15,7 @@ export default function Home() {
       width: "600px",
       height: "600px",
     }}>
-      <Board />
+      <Board gameManager={gameManager} />
     </main>
   )
 }

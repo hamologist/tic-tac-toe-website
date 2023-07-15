@@ -1,6 +1,6 @@
 import Circle from './circle';
 import Cross from './cross';
-import { BoardSquareContext } from './board';
+import { BoardSquareContext } from './types';
 
 export type BoardSquareProps = {
   state: BoardSquareContext;
