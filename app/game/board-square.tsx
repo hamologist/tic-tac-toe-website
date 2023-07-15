@@ -1,21 +1,23 @@
 import Circle from './circle';
 import Cross from './cross';
-
-export type GamePieceStates = 'circle' | 'cross' | 'none';
+import { BoardSquareContext } from './board';
 
 export type BoardSquareProps = {
-  state: GamePieceStates;
+  state: BoardSquareContext;
   top?: boolean;
   left?: boolean;
   right?: boolean;
   bottom?: boolean;
 };
 
-export default function BoardSquare(props: BoardSquareProps) {
+export default function BoardSquare({
+  state: [gamePieceState, clickHandler],
+  ...props
+}: BoardSquareProps) {
   let gamePiece = null;
-  if (props.state === 'circle') {
+  if (gamePieceState === 'circle') {
     gamePiece = Circle();
-  } else if (props.state === 'cross') {
+  } else if (gamePieceState === 'cross') {
     gamePiece = Cross();
   }
 
@@ -31,13 +33,15 @@ export default function BoardSquare(props: BoardSquareProps) {
       borderTopStyle: props.bottom ? 'solid' : 'none',
       borderBottomStyle: props.top ? 'solid' : 'none',
     }}>
-      <div style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}>
+      <div
+        onClick={clickHandler}
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}>
         {gamePiece}
       </div>
     </div>
