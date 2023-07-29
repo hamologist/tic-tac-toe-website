@@ -1,5 +1,6 @@
 import Circle from './circle';
 import Cross from './cross';
+import Line from './line';
 import { BoardSquareContext } from './types';
 
 export type BoardSquareProps = {
