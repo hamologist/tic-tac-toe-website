@@ -12,7 +12,7 @@ export type BoardSquareProps = {
 };
 
 export default function BoardSquare({
-  state: [gamePieceState, clickHandler],
+  state: [[gamePieceState, linePieceState], clickHandler],
   ...props
 }: BoardSquareProps) {
   let gamePiece = null;
@@ -44,6 +44,7 @@ export default function BoardSquare({
           justifyContent: "center",
         }}>
         {gamePiece}
+        <Line state={linePieceState} />
       </div>
     </div>
   );

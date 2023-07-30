@@ -4,7 +4,7 @@ import {
   BoardRow,
   ValidPositionIndex,
   BoardSquareRowContext,
-  BoardSquareContext
+  BoardSquareContext,
 } from './types';
 
 export type GenerateBoardSquareClickHandler = (
