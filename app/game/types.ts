@@ -12,11 +12,17 @@ export type BoardContext = [BoardSquareRowContext, BoardSquareRowContext, BoardS
 export type LineContextPoint = [ValidPositionIndex, ValidPositionIndex, LineStates];
 export type LineContext = [LineContextPoint, LineContextPoint, LineContextPoint];
 
-export type CurrentPlayer = 'PlayerOne' | 'PlayerTwo';
+export type Players = 'PlayerOne' | 'PlayerTwo';
 export type GameStates = 'PlayerOneWin' | 'PlayerTwoWin' | 'Draw' | 'Playing' | 'Processing';
 
 export type UseGameManager = {
   readonly boardState: BoardState;
-  readonly currentPlayer: CurrentPlayer;
+  readonly gameState: GameStates;
+  readonly startingPlayer: Players;
+  readonly currentPlayer: Players;
+  readonly playerOneScore: number;
+  readonly playerTwoScore: number;
   readonly boardContext: BoardContext;
+  readonly newGame: () => void;
+  readonly isPlaying: () => boolean;
 };

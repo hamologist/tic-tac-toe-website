@@ -4,7 +4,7 @@ import generateBoardContext from './board-context';
 import {
   UseGameManager,
   BoardState,
-  CurrentPlayer,
+  Players,
   ValidPositionIndex,
   BoardSquareContext,
   GameStates,
@@ -19,14 +19,26 @@ function cloneBoardState(boardState: BoardState) {
   ] as BoardState;
 }
 
+function togglePlayer(player: Players): Players {
+  if (player === 'PlayerOne') {
+    return 'PlayerTwo';
+  } else {
+    return 'PlayerOne';
+  }
+}
+
 export default function useLocalGameManager(): UseGameManager {
   const [boardState, setBoardState] = useState<BoardState>([
     [['none', 'none'], ['none', 'none'], ['none', 'none']],
     [['none', 'none'], ['none', 'none'], ['none', 'none']],
     [['none', 'none'], ['none', 'none'], ['none', 'none']],
   ]);
-  const [currentPlayer, setCurrentPlayer] = useState<CurrentPlayer>('PlayerOne');
   const [gameState, setGameState] = useState<GameStates>('Playing');
+  const [startingPlayer, setStartingPlayer] = useState<Players>('PlayerOne');
+  const [currentPlayer, setCurrentPlayer] = useState<Players>('PlayerOne');
+  const [playerOneScore, setPlayerOneScore] = useState(0);
+  const [playerTwoScore, setPlayerTwoScore] = useState(0);
+  const [moveCount, setMoveCount] = useState(0);
 
   const generateBoardSquareClickHandler = (
     rowIndex: ValidPositionIndex,
@@ -43,6 +55,7 @@ export default function useLocalGameManager(): UseGameManager {
         }
         setGameState('Processing');
         setBoardState(newBoardState);
+        setMoveCount((prevState) => prevState + 1);
       }
     };
   };
@@ -94,6 +107,42 @@ export default function useLocalGameManager(): UseGameManager {
     return null;
   };
 
+  const toggleCurrentPlayer = () => {
+    const newCurrentPlayer = togglePlayer(currentPlayer);
+    setCurrentPlayer(newCurrentPlayer);
+
+    return newCurrentPlayer;
+  };
+
+  const toggleStartingPlayer = () => {
+    const newStartingPlayer = togglePlayer(startingPlayer);
+    setStartingPlayer(newStartingPlayer);
+
+    return newStartingPlayer;
+  }
+
+
+  const newGame = () => {
+    setBoardState([
+      [['none', 'none'], ['none', 'none'], ['none', 'none']],
+      [['none', 'none'], ['none', 'none'], ['none', 'none']],
+      [['none', 'none'], ['none', 'none'], ['none', 'none']],
+    ]);
+
+    let newStartingPlayer = startingPlayer;
+    if (!isPlaying()) {
+      newStartingPlayer = toggleStartingPlayer();
+    }
+
+    setCurrentPlayer(newStartingPlayer);
+    setMoveCount(0);
+    setGameState('Playing');
+  };
+
+  const isPlaying = () => {
+    return gameState === 'Playing' || gameState === 'Processing';
+  }
+
   useEffect(() => {
     if (gameState !== 'Processing') {
       return;
@@ -107,27 +156,36 @@ export default function useLocalGameManager(): UseGameManager {
         newBoardState[lineContextPoint[0]][lineContextPoint[1]][1] = lineContextPoint[2];
       }
 
+      if (currentPlayer === 'PlayerOne') {
+        setPlayerOneScore((prevState) => prevState + 1);
+      } else {
+        setPlayerTwoScore((prevState) => prevState + 1);
+      }
       setGameState(getWinningPlayer());
       setBoardState(newBoardState);
       return;
+    } else if (moveCount === 9) {
+      setGameState('Draw');
+      return;
     }
 
-    if (currentPlayer === 'PlayerOne') {
-      setCurrentPlayer('PlayerTwo');
-    } else {
-      setCurrentPlayer('PlayerOne');
-    }
-
+    toggleCurrentPlayer();
     setGameState('Playing');
   }, [gameState, boardState]);
 
   return {
     boardState,
+    gameState,
+    startingPlayer,
     currentPlayer,
+    playerOneScore,
+    playerTwoScore,
     boardContext: generateBoardContext(
       boardState,
       generateBoardSquareClickHandler,
     ),
+    newGame,
+    isPlaying,
   };
 }
 

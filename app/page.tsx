@@ -12,8 +12,6 @@ export default function Home() {
       left: "50%",
       marginTop: "-300px",
       marginLeft: "-300px",
-      width: "600px",
-      height: "600px",
     }}>
       <Board gameManager={gameManager} />
     </main>

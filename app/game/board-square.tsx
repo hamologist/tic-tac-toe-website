@@ -42,6 +42,7 @@ export default function BoardSquare({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          cursor: "pointer",
         }}>
         {gamePiece}
         <Line state={linePieceState} />
