@@ -7,13 +7,13 @@ export default function Home() {
 
   return (
     <main style={{
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      marginTop: "-300px",
-      marginLeft: "-300px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100vh",
     }}>
-      <Board gameManager={gameManager} />
+      <Board gameManager={gameManager}/>
     </main>
   )
 }

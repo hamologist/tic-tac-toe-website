@@ -27,7 +27,7 @@ export default function BoardSquare({
       flexGrow: 0,
       maxWidth: "33.33333%",
       flexBasis: "33.3333%",
-      height: "200px",
+      aspectRatio: "1 / 1",
       borderWidth: "7px",
       borderRightStyle: props.left ? 'solid' : 'none',
       borderLeftStyle: props.right ? 'solid' : 'none',
