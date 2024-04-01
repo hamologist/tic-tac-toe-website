@@ -1,6 +1,6 @@
 "use client";
-import Board from './game/board';
-import useGameManager from './game/use-local-game-manager';
+import Board from '../game/board';
+import useGameManager from '../game/use-local-game-manager';
 
 export default function Home() {
   const gameManager = useGameManager();
