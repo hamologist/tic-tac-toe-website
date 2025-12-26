@@ -3,7 +3,7 @@
 export default function Restart() {
     return (
         <img
-            src="/tic-tac-toe/restart.svg"
+            src="/restart.svg"
             alt="Restart Game"
             style={{
                 width: "2rem",
